@@ -1,0 +1,9 @@
+.idea
+composer.phar
+composer.lock
+phpunit.xml
+vendor
+bower.json
+public/bower_components
+public/node_modules
+.vagrant
