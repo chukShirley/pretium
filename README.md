@@ -1,8 +1,8 @@
 # Personal Finance
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-skeleton.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-skeleton)
-
+*Warning!*
 *This application is meant as a proof-of-concept for technologies and development methods*
+*Thus this application is not meant for production use, although the end goal is usable software*
 
 The goal is to start with these technologies:
 * [Zend Expressive](https://github.com/zendframework/zend-expressive)
