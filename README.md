@@ -37,19 +37,11 @@ The goal is to start with these technologies:
 ## Development
 
 1. Clone the project locally
-2. Install Composer dependencies
+2. Install project dependencies
 ```
-composer install
+composer installAll
 ```
-3. Install Bower dependencies
-```
-bower install
-```
-4. Install Node packages
-```
-npm install
-```
-5. Start web server
+3. Start web server
 ```
 composer serve
 ```
