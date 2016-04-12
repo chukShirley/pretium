@@ -5,6 +5,7 @@
 *Thus this application is not meant for production use, although the end goal is usable software*
 
 The goal is to start with these technologies:
+* PHP 7
 * [Zend Expressive](https://github.com/zendframework/zend-expressive)
 * PHPUnit
 * Behat/Mink/Selenium
