@@ -1,0 +1,1 @@
+echo "/home/vagrant/sqllib" | sudo pecl install ibm_db2 creates=/usr/lib/php5/20131226/ibm_db2.so

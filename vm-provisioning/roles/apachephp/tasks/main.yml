@@ -1,0 +1,42 @@
+---
+- name: Install Apache and PHP
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - php5
+    - php5-cli
+    - php5-curl
+    - php5-gd
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-imagick
+    - php5-mcrypt
+    - php5-dev
+    - php5-intl
+    - libapache2-mod-php5
+
+- name: Activate modules
+  command: a2enmod {{ item }} creates=/etc/apache2/mods-enabled/{{ item }}.load
+  with_items: [rewrite proxy proxy_http]
+
+- name: Configure PHP (cli)
+  copy: src=php_overrides.ini dest=/etc/php5/cli/conf.d/99-php_overrides.ini mode=644
+
+- name: Configure PHP (apache2)
+  copy: src=php_overrides.ini dest=/etc/php5/apache2/conf.d/99-php_overrides.ini mode=644
+
+# Composer
+- name: Install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+- name: Rename composer.phar to composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+- name: Make composer executable
+  file: path=/usr/local/bin/composer mode=a+x state=file
+
+- name: Create global composer directory
+  file: path=/usr/local/composer state=directory owner=vagrant group=vagrant mode=0775
+
+- name: Add g+s flag to composer directory
+  file: path=usr/local/composer state=directory mode=g+s

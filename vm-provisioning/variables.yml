@@ -1,0 +1,8 @@
+---
+
+# Apache vhost
+server_name:        pretium.chukShirley.localhost
+server_ngrok_alias: pretium
+apache_doc_root:    /public
+apache_additional: |
+        SetEnv APPLICATION_ENV vagrant

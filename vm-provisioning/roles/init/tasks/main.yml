@@ -1,0 +1,44 @@
+---
+
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install system packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - git
+    - curl
+    - vim
+    - whois
+    - python-software-properties
+    - build-essential
+    - ruby-all-dev
+    - libsqlite3-dev
+    - apache2
+    - php5
+    - php5-cli
+    - php5-curl
+    - php5-gd
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-imagick
+    - php5-mcrypt
+    - php5-xdebug
+    - php5-dev
+    - libapache2-mod-php5
+    - mongodb
+    - php5-mongo
+
+- name: Install system packages for DB2
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libstdc++6:i386
+    - libpam0g:i386
+    - libxft-dev
+    - libaio1
+    - libaio1:i386
+    - libaio-dev
+    - dbus-x11
+    - firefox
+
+# libpam0g:i386, libstdc++6:i386is & 109.72.31.193 for DB2

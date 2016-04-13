@@ -1,0 +1,35 @@
+---
+
+# Can we get Ansible 2.0 ? the unarchive command can grab a tgz directly from a URL :)
+- name: Download DB2 install package
+  get_url: url=http://cdn.akrabat.com/v10.5_linuxx64_expc.tar.gz dest=/vagrant/db2/db2_installer.tgz
+
+- name: Creates directory to extract DB2 installer
+  file: path=/home/vagrant/db2-installer state=directory
+
+- name: Extract DB2 install package
+  unarchive: src=/vagrant/db2/db2_installer.tgz dest=/home/vagrant/db2-installer copy=no creates=/home/vagrant/db2-installer/expc
+
+# DB2 users
+# dasusr1/dasusr1
+- name: Add DB2 user dasusr1
+  user: name=dasusr1 comment="DB2 Administration Server" password="$6$YL5va5z7jFy9R$iOeN0Aa9tBman1/.ABnzg1QGce8e9BcVGquRguPfcR4Y/oSXZ6LtNKSe0dd6MmPCqgFwbmWXjKYlq5Sz9yxuV/"
+
+# db2fenc1/db2fenc1
+- name: Add DB2 user db2fenc1
+  user: name=db2fenc1 comment="DB2 fenced user" password="$6$9XT52COQlt$hevg6qLTYuRlRfqkokPM73DAd2K.QzZF4.iEpAewF.O63zhhHYH49AvCIzEd2b1TUv0MjUbPECbXHwSwLDpXR."
+
+- name: Install DB2
+  command: /home/vagrant/db2-installer/expc/db2setup -r /vagrant/db2/db2expc.rsp creates=/home/vagrant/sqllib/db2profile
+  sudo: yes
+
+- name: Install pecl ibm_db2
+  command: /bin/bash /vagrant/vm-provisioning/roles/db2/files/install_pecl_ibm_db2.sh creates=/usr/lib/php5/20131226/ibm_db2.so
+  sudo: yes
+
+- name: Create ibm_db2.ini file
+  copy: src=ibm_db2.ini dest=/etc/php5/mods-available/ibm_db2.ini
+
+- name: Enable ibm_db2
+  command: php5enmod -s ALL ibm_db2
+  sudo: yes
